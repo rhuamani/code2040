@@ -1,4 +1,3 @@
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -13,11 +12,9 @@ import org.joda.time.format.*;
 import org.joda.time.format.ISODateTimeFormat;
 public class Request {
 
-
     private String endpoint;
     private JsonObject jsonObj;
     private JsonObjectBuilder builder;
-
 
     //For Challenge 2
     public Request(String key1, String value1, String endpoint) {
@@ -26,7 +23,6 @@ public class Request {
                 .add(key1, value1);
         jsonObj= builder.build();
     }
-
     //For Challenge 1
     public Request(String key1, String value1, String key2, String value2, String endpoint)
     {
@@ -124,9 +120,7 @@ public class Request {
             String str = item.toString();
             if (!str.startsWith(prefix)) arr.add(str);
         }
-
         return arr;
-
     }
 
     public String addTime (String input){
@@ -143,29 +137,32 @@ public class Request {
 
     public static void main(String[] args) {
 //
-//        //Challenge1
-//        Request challenge1 = new Request ("token","a8eb7d1e871165d0827b291c76399b5a", "github", "http://github.com/rhuamani/code2040/","http://challenge.code2040.org/api/register");
-//        challenge1.connect();
-//
-//        //Challenge 2
-//        Request challenge2 = new Request("token","a8eb7d1e871165d0827b291c76399b5a","http://challenge.code2040.org/api/reverse");
-//        Request challenge2Return = new Request ("token","a8eb7d1e871165d0827b291c76399b5a", "string", challenge2.reversedString(challenge2.connect()), "http://challenge.code2040.org/api/reverse/validate" );
-//        challenge2Return.connect();
-//
-//        //Challenge 3
-//        Request challenge3 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "http://challenge.code2040.org/api/haystack");
-//        Request challenge3Return = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "needle", challenge3.findNeedleIndex(challenge3.connect()), "http://challenge.code2040.org/api/haystack/validate");
-//        challenge3Return.connect();
-////
+        String token = "a8eb7d1e871165d0827b291c76399b5a";
+        String url = "http://challenge.code2040.org/api/";
+
+        //Challenge1
+        Request chlng1 = new Request ("token",token, "github", "http://github.com/rhuamani/code2040/",url+ "register");
+        chlng1.connect();
+
+        //Challenge 2
+        Request chlng2 = new Request("token",token, url +" reverse");
+        Request chlng2Return = new Request ("token",token, "string", chlng2.reversedString(chlng2.connect()), url+ "reverse/validate" );
+        chlng2.connect();
+
+        //Challenge 3
+        Request chlng3 = new Request("token", token, url+ "haystack");
+        Request chlng3Return = new Request("token", token, "needle", chlng3.findNeedleIndex(chlng3.connect()), url+ "haystack/validate");
+        chlng3Return.connect();
+
         //Challenge 4
-        Request challenge4 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a","http://challenge.code2040.org/api/prefix");
-        Request challenge4Return = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "array", challenge4.stringArrwithoutPrefix(challenge4.connect()),"http://challenge.code2040.org/api/prefix/validate");
-        challenge4Return.connect();
-//
+        Request chlng4 = new Request("token",token,url + "prefix");
+        Request chlng4Return = new Request("token", token, "array", chlng4.stringArrwithoutPrefix(chlng4.connect()),url +"prefix/validate");
+        chlng4Return.connect();
+
         //Challenge 5
-        Request challenge5 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "http://challenge.code2040.org/api/dating");
-        Request challenge5Return = new Request("token","a8eb7d1e871165d0827b291c76399b5a","datestamp", challenge5.addTime(challenge5.connect()), "http://challenge.code2040.org/api/dating/validate");
-        challenge5Return.connect();
+        Request chlng5 = new Request("token", token,url +"dating");
+        Request chlng5Return = new Request("token",token,"datestamp", chlng5.addTime(chlng5.connect()), url + "dating/validate");
+        chlng5Return.connect();
     }
 
 }
