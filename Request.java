@@ -1,4 +1,3 @@
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -153,29 +152,29 @@ public class Request {
 
     public static void main(String[] args) {
 
-        //Challenge1
-        Request challenge1 = new Request ("a8eb7d1e871165d0827b291c76399b5a", "http://github.com/rhuamani/code2040/","http://challenge.code2040.org/api/register");
-        challenge1.connect();
+//        //Challenge1
+//        Request challenge1 = new Request ("token", "a8eb7d1e871165d0827b291c76399b5a", "github","http://github.com/rhuamani/code2040/","http://challenge.code2040.org/api/register");
+//        challenge1.connect();
 
         //Challenge 2
         Request challenge2 = new Request("token","a8eb7d1e871165d0827b291c76399b5a","http://challenge.code2040.org/api/reverse");
         Request challenge2Return = new Request ("token","a8eb7d1e871165d0827b291c76399b5a", "string", challenge2.reversedString(challenge2.connect()), "http://challenge.code2040.org/api/reverse/validate" );
         challenge2Return.connect();
 
-        //Challenge 3
-        Request challenge3 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "http://challenge.code2040.org/api/haystack");
-        Request challenge3Return = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "needle", challenge3.findNeedleIndex(challenge3.connect()), "http://challenge.code2040.org/api/haystack/validate");
-        challenge3Return.connect();
-
-        //Challenge 4
-        Request challenge4 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a","http://challenge.code2040.org/api/prefix");
-        Request challenge4Return = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "array", challenge4.stringArrwithoutPrefix(challenge4.connect()),"http://challenge.code2040.org/api/prefix/validate");
-        challenge4Return.connect();
-
-        //Challenge 5
-        Request challenge5 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "http://challenge.code2040.org/api/dating");
-        Request challenge5Return = new Request("token","a8eb7d1e871165d0827b291c76399b5a","datestamp", challenge5.addTime(challenge5.connect()), "http://challenge.code2040.org/api/dating/validate");
-        challenge5Return.connect();
+//        //Challenge 3
+//        Request challenge3 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "http://challenge.code2040.org/api/haystack");
+//        Request challenge3Return = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "needle", challenge3.findNeedleIndex(challenge3.connect()), "http://challenge.code2040.org/api/haystack/validate");
+//        challenge3Return.connect();
+//
+//        //Challenge 4
+//        Request challenge4 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a","http://challenge.code2040.org/api/prefix");
+//        Request challenge4Return = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "array", challenge4.stringArrwithoutPrefix(challenge4.connect()),"http://challenge.code2040.org/api/prefix/validate");
+//        challenge4Return.connect();
+//
+//        //Challenge 5
+//        Request challenge5 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "http://challenge.code2040.org/api/dating");
+//        Request challenge5Return = new Request("token","a8eb7d1e871165d0827b291c76399b5a","datestamp", challenge5.addTime(challenge5.connect()), "http://challenge.code2040.org/api/dating/validate");
+//        challenge5Return.connect();
     }
 
 }
