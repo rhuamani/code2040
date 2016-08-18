@@ -1,3 +1,4 @@
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -15,49 +16,41 @@ public class Request {
 
     private String endpoint;
     private JsonObject jsonObj;
+    private JsonObjectBuilder builder;
 
-
-    //For Challenge 1
-    public Request(String key1, String value1, String key2, String value2, String endpoint)
-
-    {
-        this.endpoint = endpoint;
-        jsonObj = Json.createObjectBuilder()
-                .add(key1, value1)
-                .add(key2, value2)
-                .build();
-    }
 
     //For Challenge 2
     public Request(String key1, String value1, String endpoint) {
         this.endpoint = endpoint;
-        jsonObj = Json.createObjectBuilder()
-                .add(key1, value1)
-                .build();
+        builder = Json.createObjectBuilder()
+                .add(key1, value1);
+        jsonObj= builder.build();
+    }
+
+    //For Challenge 1
+    public Request(String key1, String value1, String key2, String value2, String endpoint)
+    {
+        this(key1, value1, endpoint);
+        jsonObj = builder.add(key2,value2).build();
     }
 
     // for Challenge 3
     public Request(String key1, String value1, String key2, Integer value2, String endpoint)
     {
-        this.endpoint = endpoint;
-        jsonObj = Json.createObjectBuilder()
-                .add(key1, value1)
-                .add(key2, value2)
-                .build();
+        this(key1, value1, endpoint);
+        jsonObj = builder.add(key2,value2).build();
     }
 
     // for Challenge 4
     public Request(String key1, String value1, String key2, ArrayList<String> value2, String endpoint)
     {
-        this.endpoint = endpoint;
+        this(key1, value1,endpoint);
         JsonArrayBuilder arrBld = Json.createArrayBuilder();
         for (String str : value2){
             arrBld.add(str);
         }
-        jsonObj = Json.createObjectBuilder()
-                .add(key1, value1)
-                .add(key2, arrBld.build())
-                .build();
+        jsonObj = builder.add(key2, arrBld.build()).build();
+
     }
 
     //Sends request and
@@ -101,6 +94,7 @@ public class Request {
     }
 
 
+    //Returns jsonObject of a string in jsonformat
     public JsonObject stringToJson(String input) {
 
         JsonReader jsonReader = Json.createReader(new StringReader(input));
@@ -122,6 +116,7 @@ public class Request {
         return 0;
     }
 
+    //returns arraylist of strings without the specified prefix
     public ArrayList<String> stringArrwithoutPrefix(String input){
 
         ArrayList<String> arr = new ArrayList<>();
@@ -151,30 +146,30 @@ public class Request {
     }
 
     public static void main(String[] args) {
-
+//
 //        //Challenge1
-//        Request challenge1 = new Request ("token", "a8eb7d1e871165d0827b291c76399b5a", "github","http://github.com/rhuamani/code2040/","http://challenge.code2040.org/api/register");
+//        Request challenge1 = new Request ("token","a8eb7d1e871165d0827b291c76399b5a", "github", "http://github.com/rhuamani/code2040/","http://challenge.code2040.org/api/register");
 //        challenge1.connect();
-
-        //Challenge 2
-        Request challenge2 = new Request("token","a8eb7d1e871165d0827b291c76399b5a","http://challenge.code2040.org/api/reverse");
-        Request challenge2Return = new Request ("token","a8eb7d1e871165d0827b291c76399b5a", "string", challenge2.reversedString(challenge2.connect()), "http://challenge.code2040.org/api/reverse/validate" );
-        challenge2Return.connect();
-
+//
+//        //Challenge 2
+//        Request challenge2 = new Request("token","a8eb7d1e871165d0827b291c76399b5a","http://challenge.code2040.org/api/reverse");
+//        Request challenge2Return = new Request ("token","a8eb7d1e871165d0827b291c76399b5a", "string", challenge2.reversedString(challenge2.connect()), "http://challenge.code2040.org/api/reverse/validate" );
+//        challenge2Return.connect();
+//
 //        //Challenge 3
 //        Request challenge3 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "http://challenge.code2040.org/api/haystack");
 //        Request challenge3Return = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "needle", challenge3.findNeedleIndex(challenge3.connect()), "http://challenge.code2040.org/api/haystack/validate");
 //        challenge3Return.connect();
+////
+        //Challenge 4
+        Request challenge4 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a","http://challenge.code2040.org/api/prefix");
+        Request challenge4Return = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "array", challenge4.stringArrwithoutPrefix(challenge4.connect()),"http://challenge.code2040.org/api/prefix/validate");
+        challenge4Return.connect();
 //
-//        //Challenge 4
-//        Request challenge4 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a","http://challenge.code2040.org/api/prefix");
-//        Request challenge4Return = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "array", challenge4.stringArrwithoutPrefix(challenge4.connect()),"http://challenge.code2040.org/api/prefix/validate");
-//        challenge4Return.connect();
-//
-//        //Challenge 5
-//        Request challenge5 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "http://challenge.code2040.org/api/dating");
-//        Request challenge5Return = new Request("token","a8eb7d1e871165d0827b291c76399b5a","datestamp", challenge5.addTime(challenge5.connect()), "http://challenge.code2040.org/api/dating/validate");
-//        challenge5Return.connect();
+        //Challenge 5
+        Request challenge5 = new Request("token", "a8eb7d1e871165d0827b291c76399b5a", "http://challenge.code2040.org/api/dating");
+        Request challenge5Return = new Request("token","a8eb7d1e871165d0827b291c76399b5a","datestamp", challenge5.addTime(challenge5.connect()), "http://challenge.code2040.org/api/dating/validate");
+        challenge5Return.connect();
     }
 
 }
