@@ -106,14 +106,10 @@ public class Request {
     public int findNeedleIndex(String input) {
 
         JsonObject obj = stringToJson(input);
-        String needle = obj.get("needle").toString();
         JsonArray arr = obj.getJsonArray("haystack");
 
-        for (int i = 0; i < arr.size(); i++) {
-            String str = arr.get(i).toString();
-            if (str.equals(needle)) return i;
-        }
-        return 0;
+        return arr.indexOf(obj.get("needle"));
+
     }
 
     //returns arraylist of strings without the specified prefix
